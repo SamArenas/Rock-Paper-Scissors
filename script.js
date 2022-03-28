@@ -10,6 +10,7 @@ let computerPlay = () =>{
 }
 
 let play = (computerSelection, playerSelection) =>{
+    matchUp.textContent = playerSelection + " vs " + computerSelection;
     if(computerSelection == playerSelection){
         return "TIE";
     }
@@ -23,38 +24,42 @@ let play = (computerSelection, playerSelection) =>{
     }
 }
 
-let rounds = () => {
-    let playerWins = 0;
-    let computerWins = 0;
-
-    for(let i = 0; i<5; i++){
-        let playerSelection = prompt("Rock, Paper or Scissors?").valueOf();
-        let computerSelection = computerPlay();
-        let result = play(computerSelection,playerSelection);
-
-        console.log(playerSelection + " vs " + computerSelection);
-        console.log("Result: " + result);
-        if(computerWins>2 || playerWins>2){
-            break;
-        }
-        if(result === "TIE"){
-            i--;
-        }
-        else if(result === "YOU WON!"){
-            playerWins++;
-        }
-        else{
-            computerWins++;
-        }
+let logResult = (result) =>{
+    if(result === "YOU WON!"){
+        playerWins++;
     }
-
-    if(playerWins>computerWins){
-        console.log("YOU WIN BEST OUT OF 5");
+    else if(result == "The Computer Wins!"){
+        computerWins++;
     }
-    else{
-        console.log("YOU LOSE BEST OUT OF 5");
-    }
-
+  
+    
+    score.textContent = "Player wins: " + playerWins + "  Computer wins: " + computerWins;
 }
 
-rounds();
+
+let select = document.querySelector('.select');
+let score = document.querySelector(".score");
+let matchUp = document.querySelector(".result");
+
+let playerWins = 0;
+let computerWins = 0;
+
+select.addEventListener('click' , (e)=>{
+    let playerSelection = "";
+    let computerSelection = computerPlay();
+    
+    if(e.target.className === "rock"){
+        playerSelection = "Rock"
+        
+    }
+    else if(e.target.className === "paper"){
+        playerSelection = "Paper";
+    }
+    else{
+        playerSelection = "Scissors";
+    }
+
+    let result = play(computerSelection, playerSelection);
+    logResult(result);
+    
+});

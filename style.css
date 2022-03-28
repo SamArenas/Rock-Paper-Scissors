@@ -1,0 +1,30 @@
+
+
+.game{
+    display: flex;
+    flex:1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.select{
+    display: flex;
+    flex-direction: row;
+    gap:100px
+}
+
+.box{
+    width: 300px;
+}
+
+.box img{
+    width: 100%;
+}
+
+.box:hover{
+    width: 350px;
+    transition: 0.5s all ease;
+}
+
