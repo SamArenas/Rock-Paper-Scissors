@@ -31,9 +31,20 @@ let logResult = (result) =>{
     else if(result == "The Computer Wins!"){
         computerWins++;
     }
-  
-    
     score.textContent = "Player wins: " + playerWins + "  Computer wins: " + computerWins;
+    if(playerWins === 5 || computerWins===5){
+        declareWinner(playerWins>computerWins);
+    }
+}
+
+let declareWinner = (playerWon) =>{
+    select.style.visibility = "hidden";
+    if(playerWon){
+        score.textContent = "YOU WON!"
+    }
+    else{
+        score.textContent = "The computer won :("
+    }
 }
 
 
