@@ -1,24 +1,30 @@
 let computerPlay = () =>{
     let num = Math.floor(Math.random() * 3);
     if(num === 0){
-        return "Rock";
+        return "rock";
     }
     else if(num === 1){
-        return "Paper";
+        return "paper";
     }
-    else return "Scissors";
+    else return "scissors";
 }
 
 let play = (computerSelection, playerSelection) =>{
-    matchUp.textContent = playerSelection + " vs " + computerSelection;
+    matchUp.removeChild(matchUp.lastChild);
+
+    let match = document.createElement("h4");
+    match.textContent = playerSelection + " vs " + computerSelection
+    matchUp.appendChild(match);
+
     if(computerSelection == playerSelection){
         return "TIE";
     }
     
-    if(computerSelection === "Rock" && playerSelection === "Scissors" || computerSelection === "Paper" && playerSelection === "Rock" 
-    || computerSelection === "Scissors" && playerSelection === "Paper"){
+    if(computerSelection === "rock" && playerSelection === "scissors" || computerSelection === "paper" && playerSelection === "rock" 
+    || computerSelection === "scissors" && playerSelection === "paper"){
         return "The Computer Wins!";
     }
+
     else{
         return "YOU WON!"
     }
@@ -39,18 +45,23 @@ let logResult = (result) =>{
 
 let declareWinner = (playerWon) =>{
     select.style.visibility = "hidden";
+    let final = document.createElement("h3");
+
     if(playerWon){
-        score.textContent = "YOU WON!"
+        final.textContent = "YOU WON!";
     }
     else{
-        score.textContent = "The computer won :("
+        final.textContent = "THE COMPUTER WON :(";
     }
+    score.appendChild(final);
+    reset.style.visibility = "visible";
 }
 
 
 let select = document.querySelector('.select');
 let score = document.querySelector(".score");
 let matchUp = document.querySelector(".result");
+let reset = document.querySelector(".reset");
 
 let playerWins = 0;
 let computerWins = 0;
@@ -59,18 +70,17 @@ select.addEventListener('click' , (e)=>{
     let playerSelection = "";
     let computerSelection = computerPlay();
     
-    if(e.target.className === "rock"){
-        playerSelection = "Rock"
-        
-    }
-    else if(e.target.className === "paper"){
-        playerSelection = "Paper";
-    }
-    else{
-        playerSelection = "Scissors";
-    }
+    playerSelection = e.target.className;
 
     let result = play(computerSelection, playerSelection);
     logResult(result);
     
+});
+
+reset.addEventListener('click', (e) =>{
+    playerWins = 0;
+    computerWins = 0;
+    select.style.visibility = "visible";
+    reset.style.visibility = "hidden";
+
 });
